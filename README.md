@@ -23,9 +23,9 @@ class Foo {
 When foo() is executed will result in:
 
 ```
-23:29:26.969 [main] INFO com.mfalcier.yessir.Foo - [com.mfalcier.yessir.Foo.foo has started its execution]
+23:29:26.969 [main] INFO com.mfalcier.yessir.Foo - com.mfalcier.yessir.Foo.foo has started its execution
 23:29:27.971 [main] INFO com.mfalcier.yessir.Foo - Hello World!
-23:29:27.972 [main] INFO com.mfalcier.yessir.Foo - [com.mfalcier.yessir.Foo.foo has ended its execution after 1000ms]
+23:29:27.972 [main] INFO com.mfalcier.yessir.Foo - com.mfalcier.yessir.Foo.foo has ended its execution after 1000ms
 ```
 
 The `@LogMe` annotation can also be used on classes, in order to automatically log each of its method:
