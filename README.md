@@ -8,7 +8,7 @@ When a function is annotated, it will create a log before and after it's executi
 
 For Example:
 
-```
+``` kotlin
 class Foo {
     private val log = LoggerFactory.getLogger(this::class.java)
 
@@ -22,7 +22,7 @@ class Foo {
 
 When foo() is executed will result in:
 
-```
+``` shell
 23:29:26.969 [main] INFO com.mfalcier.yessir.Foo - com.mfalcier.yessir.Foo.foo has started its execution
 23:29:27.971 [main] INFO com.mfalcier.yessir.Foo - Hello World!
 23:29:27.972 [main] INFO com.mfalcier.yessir.Foo - com.mfalcier.yessir.Foo.foo has ended its execution after 1000ms
@@ -30,7 +30,7 @@ When foo() is executed will result in:
 
 The `@LogMe` annotation can also be used on classes, in order to automatically log each of its method:
 
-```
+``` kotlin
 @LogMe
 class Foo {
     private val log = LoggerFactory.getLogger(this::class.java)
@@ -44,7 +44,7 @@ class Foo {
 
 In order to weave, your POM.xml plugins section must at least contains:
 
-```
+``` xml
 <plugins>
     <!-- KAPT EXECUTION -->
     <plugin>
@@ -121,7 +121,7 @@ In order to weave, your POM.xml plugins section must at least contains:
 
 ## Dependencies
 Maven:
-```
+``` xml
 <dependency>
     <groupId>com.github.mfalcier</groupId>
     <artifactId>YesSir</artifactId>
@@ -134,18 +134,4 @@ Maven:
         <url>https://jitpack.io</url>
     </repository>
 </repositories>
-```
-
-Gradle:
-```
-dependencies {
-    implementation 'com.github.mfalcier:YesSir:1.0.0'
-}
-...
-allprojects {
-    repositories {
-        ...
-        maven { url 'https://jitpack.io' }
-    }
-}
 ```
