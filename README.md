@@ -119,5 +119,33 @@ In order to weave, your POM.xml plugins section must at least contains:
 </plugins>
 ```
 
-## COMING SOON
-Some way to directly include this library as a dependency to your project :sweat_smile:
+## Dependencies
+Maven:
+```
+<dependency>
+    <groupId>com.github.mfalcier</groupId>
+    <artifactId>YesSir</artifactId>
+    <version>1.0.0</version>
+</dependency>
+...
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+```
+
+Gradle:
+```
+dependencies {
+    implementation 'com.github.mfalcier:YesSir:1.0.0'
+}
+...
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
