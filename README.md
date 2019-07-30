@@ -3,8 +3,8 @@
 
 ![Image of YesSir](http://www.quickmeme.com/img/ea/ea716f8278f2c0aa9044513ef3b8acc2362567dc1a4456a27343f21a9f0b519f.jpg)
 
-This library provides an annotation, `@LogMe` that will log your functions in order to monitor their execution and duration.
-When a function is annotated, it will create a log before and after it's execution, showing it's execution time.
+This library provides an annotation, `@LogMe` that will log your functions in order to monitor their execution (with input parameters and results if those are available) and duration.
+When a function is annotated, it will create a log before and after it's execution, showing all the details.
 
 For Example:
 
@@ -13,9 +13,11 @@ class Foo {
     private val log = LoggerFactory.getLogger(this::class.java)
 
     @LogMe
-    fun foo(){
+    fun foo(name: String){
         Thread.sleep(1000) // I.E.
-        log.info("Hello World!")
+        val result = "Hello $name!"
+        log.info(result)
+        return result
     }
 }
 ```
@@ -23,9 +25,9 @@ class Foo {
 When foo() is executed will result in:
 
 ``` shell
-23:29:26.969 [main] INFO com.mfalcier.yessir.Foo - com.mfalcier.yessir.Foo.foo has started its execution
-23:29:27.971 [main] INFO com.mfalcier.yessir.Foo - Hello World!
-23:29:27.972 [main] INFO com.mfalcier.yessir.Foo - com.mfalcier.yessir.Foo.foo has ended its execution after 1000ms
+23:29:26.969 [main] INFO com.mfalcier.yessir.Foo - [com.mfalcier.yessir.Foo.foo] has started its execution with parameters {name=Marco}
+23:29:27.971 [main] INFO com.mfalcier.yessir.Foo - Hello Marco!
+23:29:27.972 [main] INFO com.mfalcier.yessir.Foo - [com.mfalcier.yessir.Foo.foo] has ended its execution after 1000ms with result [Hello Marco!]
 ```
 
 The `@LogMe` annotation can also be used on classes, in order to automatically log each of its method:
@@ -125,7 +127,7 @@ Maven:
 <dependency>
     <groupId>com.github.mfalcier</groupId>
     <artifactId>YesSir</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
 </dependency>
 ...
 <repositories>

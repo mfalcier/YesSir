@@ -34,7 +34,7 @@ class YesSir {
         val stopNanos = System.nanoTime()
         val lengthMillis = TimeUnit.NANOSECONDS.toMillis(stopNanos - startNanos)
 
-        afterExecution(joinPoint, lengthMillis)
+        afterExecution(joinPoint, lengthMillis, result)
 
         return result
     }
@@ -44,18 +44,33 @@ class YesSir {
         val codeSignature = joinPoint.signature as CodeSignature
         val cls = codeSignature.declaringType.name
         val methodName = codeSignature.name
-        val log = LoggerFactory.getLogger(cls)
+        val parameterNames = codeSignature.parameterNames
+        val parameterValues = joinPoint.args
 
-        log.info("$cls.$methodName has started its execution")
+        val parameters = mutableMapOf<String, Any?>()
+        parameterNames.forEachIndexed { index, name ->
+            parameters[name] = parameterValues[index]
+        }
+
+        val log = LoggerFactory.getLogger(cls)
+        if (parameters.isEmpty()) {
+            log.info("[$cls.$methodName] has started its execution")
+        } else {
+            log.info("[$cls.$methodName] has started its execution with parameters: $parameters")
+        }
     }
 
-    private fun afterExecution(joinPoint: JoinPoint, lengthMillis: Long) {
+    private fun afterExecution(joinPoint: JoinPoint, lengthMillis: Long, result: Any?) {
 
         val signature = joinPoint.signature
         val cls = signature.declaringType.name
         val methodName = signature.name
         val log = LoggerFactory.getLogger(cls)
 
-        log.info("$cls.$methodName has ended its execution after ${lengthMillis}ms")
+        if (result == null) {
+            log.info("[$cls.$methodName] has ended its execution after ${lengthMillis}ms")
+        } else {
+            log.info("[$cls.$methodName] has ended its execution after ${lengthMillis}ms with result: [$result]")
+        }
     }
 }
